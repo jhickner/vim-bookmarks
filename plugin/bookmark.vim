@@ -166,7 +166,7 @@ function! BookmarkPrev()
 endfunction
 command! PrevBookmark call CallDeprecatedCommand('BookmarkPrev')
 command! BookmarkPrev call BookmarkPrev()
-command! CtrlPBookmark call ctrlp#init(ctrlp#bookmarks#id()) 
+command! CtrlPBookmark call ctrlp#init(ctrlp#bookmarks#id())
 
 function! BookmarkShowAll()
   if s:is_quickfix_win()
@@ -482,6 +482,7 @@ function! s:add_missing_signs(file)
     call bm_sign#add_at(a:file, bookmark['sign_idx'], bookmark['line_nr'], bookmark['annotation'] !=# "")
   endfor
 endfunction
+command! -nargs=0 BookmarkAddSigns call s:add_missing_signs(expand('%:p'))
 
 function! s:is_quickfix_win()
   return getbufvar(winbufnr('.'), '&buftype') == 'quickfix'
