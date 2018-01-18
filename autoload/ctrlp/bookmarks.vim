@@ -21,9 +21,9 @@ function! ctrlp#bookmarks#init() abort
         for l:line_nr in l:line_nrs
             let l:bookmark = bm#get_bookmark_by_line(l:file, l:line_nr)
             let l:detail = printf("%s", l:bookmark.annotation !~ '^\s*$' ?
-                  \ l:bookmark.annotation 
+                  \ l:bookmark.annotation
                   \ : l:bookmark.content !~ '^\s*$' ?
-                  \ l:bookmark.content 
+                  \ l:bookmark.content
                   \ : "EMPTY LINE")
             call add(l:text, l:detail)
         endfor
@@ -48,13 +48,15 @@ function! ctrlp#bookmarks#accept(mode, str) abort
         let l:line_nrs = sort(bm#all_lines(l:file), "bm#compare_lines")
         for l:line_nr in l:line_nrs
             let l:bookmark = bm#get_bookmark_by_line(l:file, l:line_nr)
-            if a:str ==# l:bookmark.annotation 
+            if a:str ==# l:bookmark.annotation
                 execute l:HowToOpen." ".l:file
                 execute ":".l:line_nr
+                execute ":BookmarkAddSigns"
                 break
             elseif a:str ==# l:bookmark.content
                 execute l:HowToOpen." ".l:file
                 execute ":".l:line_nr
+                execute ":BookmarkAddSigns"
                 break
             elseif a:str ==# "EMPTY LINE"
                 execute l:HowToOpen." ".l:file
